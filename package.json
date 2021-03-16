@@ -2,7 +2,7 @@
   "name": "homey-apps-sdk-v3-types",
   "version": "1.0.0",
   "description": "The Homey Apps SDK v3 TypeScript definitions",
-  "types": "index.d.ts",
+  "types": "all.d.ts",
   "author": "Athom B.V.",
   "license": "ISC",
   "dependencies": {
