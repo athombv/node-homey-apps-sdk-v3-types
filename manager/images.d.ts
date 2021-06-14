@@ -1,11 +1,11 @@
 export = ManagerImages;
 /**
- * @namespace ManagerImages
- * @tutorial Images
+ * @hideconstructor
  * @classdesc
  * You can access this manager through the {@link Homey} instance as `this.homey.images`
  */
 declare class ManagerImages extends Manager {
+    static ID: string;
     /**
      * Get a registered {@link Image}.
      * @param {string} id

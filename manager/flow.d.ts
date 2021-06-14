@@ -1,10 +1,11 @@
 export = ManagerFlow;
 /**
- * @namespace ManagerFlow
+ * @hideconstructor
  * @classdesc
  * You can access this manager through the {@link Homey} instance as `this.homey.flow`
  */
 declare class ManagerFlow extends Manager {
+    static ID: string;
     /**
      * @param {string} id The ID of the card as defined in the app's `app.json`.
      * @returns {FlowCardAction}
@@ -31,13 +32,12 @@ declare class ManagerFlow extends Manager {
      * @param {object} opts
      * @param {string} opts.type - Type of the token, can be either `string`, `number`, `boolean` or `image`.
      * @param {string} opts.title - Title of the token
-     * @returns {FlowToken}
-     * @tutorial Flow-Tokens
+     * @returns {Promise<FlowToken>}
      */
     createToken(id: string, opts: {
         type: string;
         title: string;
-    }): FlowToken;
+    }): Promise<FlowToken>;
     /**
      * Unregister a {@link FlowToken}.
      * @param {FlowToken} tokenInstance

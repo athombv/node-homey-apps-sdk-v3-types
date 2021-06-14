@@ -1,10 +1,11 @@
 export = ManagerSettings;
 /**
- * @namespace ManagerSettings
+ * @hideconstructor
  * @classdesc
  * You can access this manager through the {@link Homey} instance as `this.homey.settings`
  */
 declare class ManagerSettings extends Manager {
+    static ID: string;
     /**
      * Get all settings keys.
      * @returns {String[]}

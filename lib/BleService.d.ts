@@ -1,25 +1,39 @@
 export = BleService;
 /**
+ * @classdesc
  * This class is a representation of a BLE Advertisement for a {@link BlePeripheral} in Homey.
  * This class must not be initiated by the developer, but retrieved by calling {@link BlePeripheral#discoverServices} or {@link BlePeripheral#getService}.
- * @property {string} id - Id of the service assigned by Homey
- * @property {string} uuid - Uuid of the service
- * @property {BlePeripheral} peripheral - The peripheral object that is the owner of this service
- * @property {string} name - The name of the service
- * @property {string} type - The type of the service
  */
 declare class BleService extends SimpleClass {
-    /** Id of the service assigned by Homey */
+    /**
+     * The peripheral object that is the owner of this service
+     * @type {import('./BlePeripheral')}
+     */
+    peripheral: import('./BlePeripheral');
+    /**
+     * Id of the service assigned by Homey
+     * @type {string}
+     */
     id: string;
-    /** Uuid of the service */
+    /**
+     * Uuid of the service
+     * @type {string}
+     */
     uuid: string;
-    /** The peripheral object that is the owner of this service */
-    peripheral: BlePeripheral;
-    /** The name of the service */
+    /**
+     * The name of the service
+     * @type {string}
+     */
     name: string;
-    /** The type of the service */
+    /**
+     * The type of the service
+     * @type {string}
+     */
     type: string;
-    characteristics: any;
+    /**
+     * @type {BleCharacteristic[]}
+     */
+    characteristics: BleCharacteristic[];
     /**
      * Discovers included service uuids
      * @param {string[]} [includedServicesFilter] Array of included service uuids to search for
@@ -53,5 +67,4 @@ declare class BleService extends SimpleClass {
     write(characteristicUuid: string, data: Buffer): Promise<Buffer>;
 }
 import SimpleClass = require("./SimpleClass.js");
-import BlePeripheral = require("./BlePeripheral.js");
 import BleCharacteristic = require("./BleCharacteristic.js");

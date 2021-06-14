@@ -1,7 +1,9 @@
 export = Signal;
 /**
+ * @typedef {import('../manager/rf')} ManagerRF
+ */
+/**
  * The Signal class represents an Signal as defined in the app's <code>app.json</code>.
- * @tutorial Signals
  */
 declare class Signal extends SimpleClass {
     id: string;
@@ -39,4 +41,8 @@ declare class Signal extends SimpleClass {
         repetitions?: object | undefined;
     } | undefined): Promise<any>;
 }
+declare namespace Signal {
+    export { ManagerRF };
+}
 import SimpleClass = require("./SimpleClass.js");
+type ManagerRF = import('../manager/rf');

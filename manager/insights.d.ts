@@ -1,10 +1,11 @@
 export = ManagerInsights;
 /**
- * @namespace ManagerInsights
+ * @hideconstructor
  * @classdesc
  * You can access this manager through the {@link Homey} instance as `this.homey.insights`
  */
 declare class ManagerInsights extends Manager {
+    static ID: string;
     /**
      * Get all logs belonging to this app.
      * @returns {Promise<InsightsLog[]>} An array of {@link InsightsLog} instances
@@ -29,8 +30,8 @@ declare class ManagerInsights extends Manager {
     createLog(id: string, options: {
         title: string;
         type: string;
-        units: string | undefined;
-        decimals: number | undefined;
+        units?: string | undefined;
+        decimals?: number | undefined;
     }): Promise<InsightsLog>;
     /**
      * Delete a log.

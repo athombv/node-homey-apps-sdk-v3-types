@@ -35,6 +35,6 @@ declare class Api extends events.EventEmitter {
      * Unregister the API.
      * This is a shorthand method for {@link ManagerApi#unregisterApi}.
      */
-    unregister(): any;
+    unregister(): void;
 }
 import events = require("events");

@@ -18,5 +18,4 @@ declare class DiscoveryResultSSDP extends DiscoveryResult {
     port: string;
     /** The headers (lowercase) in the SSDP response. */
     headers: object;
-    protected constructor(props: any);
 }
