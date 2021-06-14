@@ -9,11 +9,11 @@ export = FlowCardTrigger;
 declare class FlowCardTrigger extends FlowCard {
     /**
      * Trigger this card to start a Flow
-     * @param {object} tokens - An object with tokens and their typed values, as defined in an app's <code>app.json</code>
-     * @param {object} state - An object with properties which are accessible throughout the Flow
+     * @param {object=} tokens - An object with tokens and their typed values, as defined in an app's <code>app.json</code>
+     * @param {object=} state - An object with properties which are accessible throughout the Flow
      * @returns {Promise<any>} Promise resolves when flow is triggered
      */
-    trigger(tokens: object, state: object): Promise<any>;
+     trigger(tokens?: object | undefined, state?: object | undefined): Promise<any>;
     /**
      * Get the current argument values of this card, as filled in by the user.
      * @returns {Promise<any[]>} A Promise that resolves to an array of key-value objects with the argument's name as key. Every array entry represents one Flow card.

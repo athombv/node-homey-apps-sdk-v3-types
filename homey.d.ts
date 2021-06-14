@@ -1,3 +1,7 @@
+/** @type {any} */
+export const env: any;
+/** @type {any} */
+export const manifest: any;
 import SimpleClass = require("./lib/SimpleClass.js");
 import Api = require("./lib/Api.js");
 import ApiApp = require("./lib/ApiApp.js");
@@ -36,53 +40,4 @@ import SignalInfrared = require("./lib/SignalInfrared.js");
 import ZigBeeNode = require("./lib/ZigBeeNode.js");
 import ZwaveCommandClass = require("./lib/ZwaveCommandClass.js");
 import ZwaveNode = require("./lib/ZwaveNode.js");
-
-declare const manifest: any;
-declare const env: any;
-
-declare module "homey" {
-  export {
-    // Properties
-    env,
-    manifest,
-    // Classes
-    SimpleClass,
-    Api,
-    ApiApp,
-    App,
-    BleAdvertisement,
-    BleCharacteristic,
-    BleDescriptor,
-    BlePeripheral,
-    BleService,
-    CloudOAuth2Callback,
-    CloudWebhook,
-    Device,
-    DiscoveryResult,
-    DiscoveryResultMAC,
-    DiscoveryResultMDNSSD,
-    DiscoveryResultSSDP,
-    DiscoveryStrategy,
-    Driver,
-    FlowArgument,
-    FlowCard,
-    FlowCardAction,
-    FlowCardCondition,
-    FlowCardTrigger,
-    FlowCardTriggerDevice,
-    FlowToken,
-    Image,
-    InsightsLog,
-    LedringAnimation,
-    LedringAnimationSystem,
-    LedringAnimationSystemProgress,
-    Manager,
-    Signal,
-    Signal433,
-    Signal868,
-    SignalInfrared,
-    ZigBeeNode,
-    ZwaveCommandClass,
-    ZwaveNode
-  };
-}
+export { SimpleClass, Api, ApiApp, App, BleAdvertisement, BleCharacteristic, BleDescriptor, BlePeripheral, BleService, CloudOAuth2Callback, CloudWebhook, Device, DiscoveryResult, DiscoveryResultMAC, DiscoveryResultMDNSSD, DiscoveryResultSSDP, DiscoveryStrategy, Driver, FlowArgument, FlowCard, FlowCardAction, FlowCardCondition, FlowCardTrigger, FlowCardTriggerDevice, FlowToken, Image, InsightsLog, LedringAnimation, LedringAnimationSystem, LedringAnimationSystemProgress, Manager, Signal, Signal433, Signal868, SignalInfrared, ZigBeeNode, ZwaveCommandClass, ZwaveNode };
