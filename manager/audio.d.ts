@@ -1,10 +1,11 @@
 export = ManagerAudio;
 /**
- * @namespace ManagerAudio
+ * @hideconstructor
  * @classdesc
  * You can access this manager through the {@link Homey} instance as `this.homey.audio`
  */
 declare class ManagerAudio extends Manager {
+    static ID: string;
     /**
      * Play WAV audio sample
      * @param {string} sampleId unique id which can be used to play sounds that have been played before

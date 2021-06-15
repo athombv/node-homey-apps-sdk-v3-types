@@ -2,7 +2,6 @@ export = ZigBeeNode;
 /**
  * This class is a representation of a Zigbee Device in Homey.
  * This class must not be initiated directly, but retrieved by calling {@link ManagerZigBee#getNode}.
- * @class ZigBeeNode
  * @property {string} manufacturerName
  * @property {string} productId
  * @property {boolean} receiveWhenIdle Reflects whether ZigBeeNode can receive commands while
@@ -21,7 +20,6 @@ declare class ZigBeeNode extends SimpleClass {
      * descriptors.
      * @returns {Promise<void>}
      * @private
-     * @ignore
      */
     private interview;
     /**

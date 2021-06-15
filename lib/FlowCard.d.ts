@@ -1,5 +1,8 @@
 export = FlowCard;
 /**
+ * @typedef {import('../manager/flow')} ManagerFlow
+ */
+/**
  * The FlowCard class is a programmatic representation of a Flow card, as defined in the app's `/app.json`.
  */
 declare class FlowCard extends SimpleClass {
@@ -12,13 +15,24 @@ declare class FlowCard extends SimpleClass {
      * @event FlowCard#update
      */
     /**
+     * @typedef {object} FlowCard.ArgumentAutocompleteResults
+     * @property {string} name
+     * @property {string=} description
+     * @property {string=} icon
+     * @property {string=} image
+     */
+    /**
+     * @callback FlowCard.ArgumentAutocompleteCallback
+     * @param {string} query The typed query by the user
+     * @param {any} args The current state of the arguments, as selected by the user in the front-end
+     * @returns {Promise<FlowCard.ArgumentAutocompleteResults> | FlowCard.ArgumentAutocompleteResults}
+     */
+    /**
      * Register a listener for a autocomplete event of a specific flow card argument.
      * This is fired when the argument is of type `autocomplete` and the user typed a query.
      *
      * @param {string} name - name of the desired flow card argument.
-     * @param {Function} listener - Should return a promise that resolves to the autocomplete results.
-     * @param {string} listener.query - The typed query by the user
-     * @param {object} listener.args - The current state of the arguments, as selected by the user in the front-end
+     * @param {FlowCard.ArgumentAutocompleteCallback} listener - Should return a promise that resolves to the autocomplete results.
      * @returns {FlowCard}
      *
      * @example
@@ -44,20 +58,36 @@ declare class FlowCard extends SimpleClass {
      *   });
      * });
      */
-    registerArgumentAutocompleteListener(name: string, listener: Function): FlowCard;
-    getArgument(name: any): any;
+    registerArgumentAutocompleteListener(name: string, listener: FlowCard.ArgumentAutocompleteCallback): FlowCard;
     /**
-     * Get the current argument values of this card, as filled in by the user.
-     * @returns {Promise<any[]>} A Promise that resolves to an array of key-value objects with the argument's name as key. Every array entry represents one Flow card.
+     * @param {string} name the flow card argument name
+     * @returns {FlowArgument}
      */
-    getArgumentValues(): Promise<any[]>;
+    getArgument(name: string): FlowArgument;
+    /**
+     * @callback FlowCard.RunCallback
+     * @param {any} args The arguments of the Flow Card, with keys as defined in the `/app.json` and values as specified by the user
+     * @param {any} state The state of the Flow
+     * @returns {Promise<any> | any}
+     */
     /**
      * Register a listener for a run event.
-     * @param {Function} listener - Should return a promise that resolves to the FlowCards run result
-     * @param {object} listener.args - The arguments of the Flow Card, with keys as defined in the `/app.json` and values as specified by the user
-     * @param {object} listener.state - The state of the Flow
+     * @param {FlowCard.RunCallback} listener - Should return a promise that resolves to the FlowCards run result
      * @returns {FlowCard}
      */
-    registerRunListener(listener: Function): FlowCard;
+    registerRunListener(listener: FlowCard.RunCallback): FlowCard;
 }
-import SimpleClass = require("./SimpleClass");
+declare namespace FlowCard {
+    export { ArgumentAutocompleteResults, ArgumentAutocompleteCallback, RunCallback, ManagerFlow };
+}
+import SimpleClass = require("./SimpleClass.js");
+import FlowArgument = require("./FlowArgument.js");
+type ManagerFlow = import('../manager/flow');
+type ArgumentAutocompleteResults = {
+    name: string;
+    description?: string | undefined;
+    icon?: string | undefined;
+    image?: string | undefined;
+};
+type ArgumentAutocompleteCallback = (query: string, args: any) => Promise<FlowCard.ArgumentAutocompleteResults> | FlowCard.ArgumentAutocompleteResults;
+type RunCallback = (args: any, state: any) => Promise<any> | any;

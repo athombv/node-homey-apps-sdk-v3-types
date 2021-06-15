@@ -1,33 +1,55 @@
 export = BleCharacteristic;
 /**
+ * @classdesc
  * This class is a representation of a BLE Advertisement for a {@link BlePeripheral} in Homey.
  * This class must not be initiated by the developer, but retrieved by calling {@link BleService#discoverCharacteristics} or {@link BleService#getCharacteristic}.
- * @property {string} id - Id of the characteristic assigned by Homey
- * @property {string} uuid - Uuid of the characteristic
- * @property {BlePeripheral} peripheral - The peripheral object that is the owner of this characteristic
- * @property {BleService} service - The service object that is the owner of this characteristic
- * @property {string} name - The name of the characteristic
- * @property {string} type - The type of the characteristic
- * @property {string[]} properties - The properties of the characteristic
- * @property {Buffer} value - The value of the characteristic. Note this is set to the last result of ${@link BleCharacteristic#read} and is initially null
  */
 declare class BleCharacteristic extends SimpleClass {
-    /** Id of the characteristic assigned by Homey */
+    /**
+     * The peripheral object that is the owner of this characteristic
+     * @type {import('./BlePeripheral')}
+     */
+    peripheral: import('./BlePeripheral');
+    /**
+     * The service object that is the owner of this characteristic
+     * @type {import('./BleService')}
+     */
+    service: import('./BleService');
+    /**
+     * Id of the characteristic assigned by Homey
+     * @type {string}
+     */
     id: string;
-    /** Uuid of the characteristic */
+    /**
+     * Uuid of the characteristic
+     * @type {string}
+     */
     uuid: string;
-    /** The peripheral object that is the owner of this characteristic */
-    peripheral: BlePeripheral;
-    /** The service object that is the owner of this characteristic */
-    service: BleService;
-    /** The name of the characteristic */
+    /**
+     * The name of the characteristic
+     * @type {string}
+     */
     name: string;
-    /** The type of the characteristic */
+    /**
+     * The type of the characteristic
+     * @type {string}
+     */
     type: string;
-    /** The properties of the characteristic */
+    /**
+     * The properties of the characteristic
+     * @type {string[]}
+     */
     properties: string[];
-    /** The value of the characteristic. Note this is set to the last result of ${@link BleCharacteristic#read} and is initially null */
-    value: Buffer;
+    /**
+     * The value of the characteristic. Note this is set to the last result of ${@link BleCharacteristic#read} and is initially null
+     * @type {Buffer | null}
+     */
+    value: Buffer | null;
+    /**
+     * @type {BleDescriptor[]}
+     */
+    descriptors: BleDescriptor[];
+    _callback: BleCharacteristic.NotificationCallback | null;
     /**
      * Discovers descriptors for this characteristic
      * @param {string[]} [descriptorsFilter] list of descriptorUuids to search for
@@ -45,8 +67,27 @@ declare class BleCharacteristic extends SimpleClass {
      * @returns {Promise<Buffer>}
      */
     write(data: Buffer): Promise<Buffer>;
+    /**
+     * @callback BleCharacteristic.NotificationCallback
+     * @param {Buffer} data the received notification data
+     */
+    /**
+     * Subscribe to BLE notifications from the characteristic.
+     * The callback will be called with the data as buffer
+     * @param {BleCharacteristic.NotificationCallback} callback
+     * @returns {Promise<void>} - resolves when the subscription is succesful
+     * @since 6.0.0
+     */
+    subscribeToNotifications(callback: BleCharacteristic.NotificationCallback): Promise<void>;
+    /**
+     * Unsubscribes notifications from this characteristic.
+     * @returns {Promise<void>} - resolves when unsubscribe has performed successful and the callback has been removed.
+     * @since 6.0.0
+     */
+    unsubscribeFromNotifications(): Promise<void>;
+}
+declare namespace BleCharacteristic {
+    type NotificationCallback = (data: Buffer) => any;
 }
 import SimpleClass = require("./SimpleClass.js");
 import BleDescriptor = require("./BleDescriptor.js");
-import BlePeripheral = require("./BlePeripheral.js");
-import BleService = require("./BleService.js");

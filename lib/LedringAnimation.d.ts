@@ -1,5 +1,8 @@
 export = LedringAnimation;
 /**
+ * @typedef {import('../manager/ledring')} ManagerLedring
+ */
+/**
  * @typedef LedringAnimation.Frame
  * @property {number} r between 0 and 255.
  * @property {number} g between 0 and 255.
@@ -78,19 +81,21 @@ declare class LedringAnimation extends events.EventEmitter {
     };
 }
 declare namespace LedringAnimation {
-    type Frame = {
-        /**
-         * between 0 and 255.
-         */
-        r: number;
-        /**
-         * between 0 and 255.
-         */
-        g: number;
-        /**
-         * between 0 and 255.
-         */
-        b: number;
-    };
+    export { Frame, ManagerLedring };
 }
 import events = require("events");
+type ManagerLedring = import('../manager/ledring');
+type Frame = {
+    /**
+     * between 0 and 255.
+     */
+    r: number;
+    /**
+     * between 0 and 255.
+     */
+    g: number;
+    /**
+     * between 0 and 255.
+     */
+    b: number;
+};
