@@ -1,10 +1,11 @@
 export = ManagerApps;
 /**
- * @namespace ManagerApps
+ * @hideconstructor
  * @classdesc
  * You can access this manager through the {@link Homey} instance as `this.homey.apps`
  */
 declare class ManagerApps extends Manager {
+    static ID: string;
     /**
      * Check whether an app is installed, enabled and running.
      * @param {ApiApp} appInstance

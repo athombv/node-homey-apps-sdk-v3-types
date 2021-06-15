@@ -1,10 +1,11 @@
 export = ManagerZigBee;
 /**
- * @namespace ManagerZigBee
+ * @hideconstructor
  * @classdesc
  * You can access this manager through the {@link Homey} instance as `this.homey.zigbee`
  */
 declare class ManagerZigBee extends Manager {
+    static ID: string;
     /**
      * Get a ZigBeeNode instance for a Device
      * @param {Device} device - An instance of Device

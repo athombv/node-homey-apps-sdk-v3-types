@@ -1,10 +1,11 @@
 export = ManagerApi;
 /**
- * @namespace ManagerApi
+ * @hideconstructor
  * @classdesc
  * You can access this manager through the {@link Homey} instance as `this.homey.api`
  */
 declare class ManagerApi extends Manager {
+    static ID: string;
     /**
      * Perform a GET request.
      * @param {string} uri - The path to request, relative to /api.
@@ -36,7 +37,7 @@ declare class ManagerApi extends Manager {
      * @param {string} event - The name of the event
      * @param {any} data - The data of the event
      */
-    realtime(event: string, data?: any): any;
+    realtime(event: string, data: any): any;
     /**
      * Create an {@link Api} instance, to receive realtime events.
      * @param {string} uri The URI of the endpoint, e.g. `homey:manager:webserver`
@@ -61,7 +62,7 @@ declare class ManagerApi extends Manager {
      * The API Token expires after not being used for two weeks.
      *
      * > Requires the `homey:manager:api` permission.
-     * > For more information about permissions read the {@tutorial Permissions} tutorial.
+     * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @returns {Promise<string>}
      */
@@ -70,7 +71,7 @@ declare class ManagerApi extends Manager {
      * Returns the url for local access.
      *
      * > Requires the `homey:manager:api` permission.
-     * > For more information about permissions read the {@tutorial Permissions} tutorial.
+     * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @returns {Promise<string>}
      */

@@ -1,15 +1,16 @@
 export = ManagerRF;
 /**
- * @namespace ManagerRF
+ * @hideconstructor
  * @classdesc
  * You can access this manager through the {@link Homey} instance as `this.homey.rf`
  */
 declare class ManagerRF extends Manager {
+    static ID: string;
     /**
      * Transmit a raw frame using the specified signal.
      *
      * > Requires the `homey:wireless:433`, `homey:wireless:868` and/or `homey:wireless:ir` permissions.
-     * > For more information about permissions read the {@tutorial Permissions} tutorial.
+     * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @param {Signal} signal used to transmit data
      * @param {Array<number> | Buffer} frame data to be transmitted
@@ -22,7 +23,7 @@ declare class ManagerRF extends Manager {
      * Send a predefined command using the specified signal.
      *
      * > Requires the `homey:wireless:433`, `homey:wireless:868` and/or `homey:wireless:ir` permissions.
-     * > For more information about permissions read the {@tutorial Permissions} tutorial.
+     * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @param {Signal} signal used to transmit data
      * @param {string} commandId name of the command as specified in the app manifest
@@ -50,7 +51,7 @@ declare class ManagerRF extends Manager {
      * Enables a signal to start receiving events.
      *
      * > Requires the `homey:wireless:433`, `homey:wireless:868` and/or `homey:wireless:ir` permissions.
-     * > For more information about permissions read the {@tutorial Permissions} tutorial.
+     * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @template {Signal} T
      * @param {T} signal
@@ -61,7 +62,7 @@ declare class ManagerRF extends Manager {
      * Disables a signal from receiving events.
      *
      * > Requires the `homey:wireless:433`, `homey:wireless:868` and/or `homey:wireless:ir` permissions.
-     * > For more information about permissions read the {@tutorial Permissions} tutorial.
+     * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @param {Signal} signal
      * @returns {Promise<void>}

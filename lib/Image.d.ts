@@ -17,7 +17,7 @@ declare class Image {
      * Unregister the image.
      * This is a shorthand method for {@link ManagerImages#unregisterImage}.
      */
-    unregister(): Promise<any>;
+    unregister(): Promise<void>;
     /**
      * Pipe the image into the target stream and returns metadata.
      * @param {NodeJS.WritableStream} stream
@@ -35,7 +35,6 @@ declare class Image {
      * Set the image's data.
      * @param {Function} source - This function will be called with the parameter `(stream)` when someone pipes this image. Pipe the image content to the stream. This is mostly useful for external image sources.
      * @since 2.2.0
-     * @tutorial Images
      */
     setStream(source: Function): void;
     /**
@@ -56,18 +55,20 @@ declare class Image {
     toJSON(): string;
 }
 declare namespace Image {
-    type ImageStreamMetadata = {
-        /**
-         * - A filename for this image
-         */
-        filename: string;
-        /**
-         * - The mime type of this image
-         */
-        contentType: string;
-        /**
-         * - The size in bytes, if available
-         */
-        contentLength?: number | undefined;
-    };
+    export { ImageStreamMetadata, ManagerImages };
 }
+type ManagerImages = import('../manager/images');
+type ImageStreamMetadata = {
+    /**
+     * - A filename for this image
+     */
+    filename: string;
+    /**
+     * - The mime type of this image
+     */
+    contentType: string;
+    /**
+     * - The size in bytes, if available
+     */
+    contentLength?: number | undefined;
+};

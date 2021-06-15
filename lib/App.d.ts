@@ -21,7 +21,7 @@ declare class App extends SimpleClass {
      * The Homey instance of this app
      * @type {Homey}
      */
-    homey: Homey<this>;
+    homey: Homey;
     /**
      * The app.json manifest
      * @type {any} */
@@ -40,4 +40,4 @@ declare class App extends SimpleClass {
     onInit(): Promise<void>;
 }
 import SimpleClass = require("./SimpleClass.js");
-import Homey = require("./Homey.js");
+type Homey = import('./Homey');

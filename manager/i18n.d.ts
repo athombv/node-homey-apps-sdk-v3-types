@@ -1,10 +1,11 @@
 export = ManagerI18n;
 /**
- * @namespace ManagerI18n
+ * @hideconstructor
  * @classdesc
  * You can access this manager through the {@link Homey} instance as `this.homey.i18n`
  */
 declare class ManagerI18n extends Manager {
+    static ID: string;
     /**
      * Translate a string, as defined in the app's `/locales/<language>.json` file.
      * This method is also available at @{link Homey#__}

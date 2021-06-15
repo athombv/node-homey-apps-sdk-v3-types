@@ -1,15 +1,16 @@
 export = ManagerSpeechOutput;
 /**
- * @namespace ManagerSpeechOutput
+ * @hideconstructor
  * @classdesc
  * You can access this manager through the {@link Homey} instance as `this.homey.speechOutput`
  */
 declare class ManagerSpeechOutput extends Manager {
+    static ID: string;
     /**
      * Let Homey say something. There is a limit of 255 characters.
      *
      * > Requires the `homey:manager:speech`-output permission.
-     * > For more information about permissions read the {@tutorial Permissions} tutorial.
+     * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @param {string} text - The sentence to say
      * @param {object} opts

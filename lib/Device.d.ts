@@ -4,7 +4,6 @@ export = Device;
  * This class should be extended and exported from `device.js`, or any custom class as returned in {@link Driver#onMapDeviceClass}.
  * Methods prefixed with `on` are meant to be overriden.
  * It is not allowed to overwrite the constructor.
- * @tutorial Drivers
  * @example <caption>/drivers/my_driver/device.js</caption>
  * const Homey = require('homey');
  *
@@ -16,18 +15,18 @@ export = Device;
  *
  * module.exports = MyDevice;
  */
-declare class Device<T extends App = App> extends SimpleClass {
+declare class Device extends SimpleClass {
     /**
      * The Homey instance of this app
      * @type {Homey}
      */
-    homey: Homey<T>;
+    homey: Homey;
     /**
      * The device's driver instance
      * @type {Driver}
      */
-    driver: any;
-    getAppId(): any;
+    driver: Driver;
+    getAppId(): string;
     /**
      * Returns a Promise which is resolved when the Device is ready ({@link Device#onInit} has been run).
      * @returns {Promise<void>}
@@ -35,14 +34,14 @@ declare class Device<T extends App = App> extends SimpleClass {
     ready(): Promise<void>;
     /**
      * Get the device's state (capability values)
-     * @returns {object} The device's state object
+     * @returns {any} The device's state object
      */
-    getState(): object;
+    getState(): any;
     /**
      * Get the device's data object
-     * @returns {object} The device's data object
+     * @returns {any} The device's data object
      */
-    getData(): object;
+    getData(): any;
     /**
      * Set a warning message for this device, to be shown to the user
      * @param {string | null} [message] Custom warning message, or `null` to unset the warning
@@ -78,18 +77,16 @@ declare class Device<T extends App = App> extends SimpleClass {
     getSetting(key: string): any;
     /**
      * Get the device's settings object
-     * @returns {object} The device's settings object
-     * @tutorial Drivers-Settings
+     * @returns {any} The device's settings object
      */
-    getSettings(): object;
+    getSettings(): any;
     /**
      * Set the device's settings object. The `newSettings` object may contain a subset of all settings.
      * Note that the {@link Device#onSettings} method will not be called when the settings are changed programmatically.
-     * @param {object} settings - A settings object
+     * @param {any} settings - A settings object
      * @returns {Promise<void>}
-     * @tutorial Drivers-Settings
      */
-    setSettings(settings: object): Promise<void>;
+    setSettings(settings: any): Promise<void>;
     /**
      * Get an array of capabilities
      * @returns {string[]} The device's capabilities array
@@ -137,9 +134,9 @@ declare class Device<T extends App = App> extends SimpleClass {
     /**
      * Get the device's energy object
      * @since 3.0.0
-     * @returns {object} The device's energy info object
+     * @returns {any} The device's energy info object
      */
-    getEnergy(): object;
+    getEnergy(): any;
     /**
      * Set the device's energy object
      * @since 3.0.0
@@ -163,9 +160,9 @@ declare class Device<T extends App = App> extends SimpleClass {
      * Get a device's capability options.
      * @param {string} capabilityId
      * @since 3.0.0
-     * @returns {object}
+     * @returns {any}
      */
-    getCapabilityOptions(capabilityId: string): object;
+    getCapabilityOptions(capabilityId: string): any;
     /**
      * Set a device's capability options.
      * Note: this is an expensive method so use it only when needed.
@@ -175,36 +172,42 @@ declare class Device<T extends App = App> extends SimpleClass {
      */
     setCapabilityOptions(capabilityId: string, options: object): Promise<void>;
     /**
+     * @callback Device.CapabilityCallback
+     * @param {any} value The new value
+     * @param {any} opts An object with optional properties, e.g. `{ duration: 300 }`
+     * @returns {Promise<void> | void}
+     */
+    /**
      * Register a listener for a capability change event.
      * This is invoked when a device's state change is requested.
      * @param {string} capabilityId
-     * @param {Function} listener
-     * @param {any} listener.value - The new value
-     * @param {object} listener.opts - An object with optional properties, e.g. `{ duration: 300 }`
+     * @param {Device.CapabilityCallback} listener
      * @example
-     * this.registerCapabilityListener('dim', ( value, opts ) => {
+     * this.registerCapabilityListener('dim', async (value, opts) => {
      *   this.log('value', value);
      *   this.log('opts', opts);
-     *   return Promise.resolve();
      * });
      */
-    registerCapabilityListener(capabilityId: string, listener: Function): void;
+    registerCapabilityListener(capabilityId: string, listener: Device.CapabilityCallback): void;
+    /**
+     * @callback Device.MultipleCapabilityCallback
+     * @param {Object<string, any>} capabilityValues An object with the changed capability values, e.g. `{ dim: 0.5 }`
+     * @param {Object<string, any>} capabilityOptions An object with optional properties, per capability, e.g. `{ dim: { duration: 300 } }`
+     * @returns {Promise<void> | void}
+     */
     /**
      * Register a listener for multiple capability change events. The callback is debounced with `timeout`
      * This is invoked when a device's state change is requested.
      * @param {string[]} capabilityIds
-     * @param {Function} listener
-     * @param {any} listener.capabilityValues - An object with the changed capability values, e.g. `{ dim: 0.5 }`
-     * @param {object} listener.capabilityOptions - An object with optional properties, per capability, e.g. `{ dim: { duration: 300 } }`
+     * @param {Device.MultipleCapabilityCallback} listener
      * @param {number} timeout - The debounce timeout
      * @example
-     * this.registerMultipleCapabilityListener([ 'dim', 'light_hue', 'light_saturation' ], ( capabilityValues, capabilityOptions ) => {
+     * this.registerMultipleCapabilityListener(['dim', 'light_hue', 'light_saturation'], async (capabilityValues, capabilityOptions) => {
      *   this.log('capabilityValues', capabilityValues);
      *   this.log('capabilityOptions', capabilityOptions);
-     *   return Promise.resolve();
      * }, 500);
      */
-    registerMultipleCapabilityListener(capabilityIds: string[], listener: Function, timeout: number): void;
+    registerMultipleCapabilityListener(capabilityIds: string[], listener: Device.MultipleCapabilityCallback, timeout?: number): void;
     /**
      * Trigger a capability listener programmatically.
      * @param {string} capabilityId
@@ -215,9 +218,9 @@ declare class Device<T extends App = App> extends SimpleClass {
     triggerCapabilityListener(capabilityId: string, value: any, opts?: object): Promise<any>;
     /**
      * Get the entire store
-     * @returns {object}
+     * @returns {any}
      */
-    getStore(): object;
+    getStore(): any;
     /**
      * Get all store keys.
      * @returns {String[]}
@@ -233,15 +236,15 @@ declare class Device<T extends App = App> extends SimpleClass {
      * Set a store value.
      * @param {string} key
      * @param {any} value
-     * @returns {Promise<object>} - The new store
+     * @returns {Promise<void>}
      */
-    setStoreValue(key: string, value: any): Promise<object>;
+    setStoreValue(key: string, value: any): Promise<void>;
     /**
      * Unset a store value.
      * @param {string} key
-     * @returns {Promise<object>} - The new store
+     * @returns {Promise<void>}
      */
-    unsetStoreValue(key: string): Promise<object>;
+    unsetStoreValue(key: string): Promise<void>;
     /**
      * Set this device's album art
      * @param {Image} image
@@ -264,7 +267,6 @@ declare class Device<T extends App = App> extends SimpleClass {
      * @param {object} event.newSettings The new settings object
      * @param {string[]} event.changedKeys An array of keys changed since the previous version
      * @returns {Promise<string|void>} return a custom message that will be displayed
-     * @tutorial Drivers-Settings
      */
     onSettings({ oldSettings, newSettings, changedKeys }: {
         oldSettings: object;
@@ -310,8 +312,17 @@ declare class Device<T extends App = App> extends SimpleClass {
      */
     onDiscoveryLastSeenChanged(discoveryResult: DiscoveryResult): void;
 }
+declare namespace Device {
+    export { CapabilityCallback, MultipleCapabilityCallback, Homey, Driver, DiscoveryResult };
+}
 import SimpleClass = require("./SimpleClass.js");
-import Homey = require("./Homey.js");
-import App = require("./App.js");
+type Homey = import('./Homey');
+type Driver = import('./Driver');
 import Image = require("./Image.js");
-import DiscoveryResult = require("./DiscoveryResult");
+type DiscoveryResult = import('./DiscoveryResult');
+type CapabilityCallback = (value: any, opts: any) => Promise<void> | void;
+type MultipleCapabilityCallback = (capabilityValues: {
+    [x: string]: any;
+}, capabilityOptions: {
+    [x: string]: any;
+}) => Promise<void> | void;

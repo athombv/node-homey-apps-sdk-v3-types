@@ -1,8 +1,3 @@
-import SimpleClass = require("./SimpleClass");
-import DiscoveryResultMDNSSD = require("./DiscoveryResultMDNSSD");
-import DiscoveryResultSSDP = require("./DiscoveryResultSSDP");
-import DiscoveryResultMAC = require("./DiscoveryResultMAC");
-
 export = DiscoveryStrategy;
 /**
  * This class should not be instanced manually, but created by calling {@link ManagerDiscovery#getStrategy} instead.
@@ -11,13 +6,23 @@ export = DiscoveryStrategy;
 declare class DiscoveryStrategy extends SimpleClass {
     type: string;
     /**
-     *
-     * @returns {object} Returns an object of {@link DiscoveryResultMDNSSD}, {@link DiscoveryResultSSDP} or {@link DiscoveryResultMAC} instances.
+     * Get all discovery results as an object.
+     * @returns {Object<string, DiscoveryResultMDNSSD | DiscoveryResultSSDP | DiscoveryResultMAC>}
      */
-    getDiscoveryResults(): Record<string, DiscoveryResultMDNSSD | DiscoveryResultSSDP | DiscoveryResultMAC>;
+    getDiscoveryResults(): {
+        [x: string]: DiscoveryResultMDNSSD | DiscoveryResultSSDP | DiscoveryResultMAC;
+    };
     /**
+     * Get a specific discovery result.
      * @param {string} id
-     * @returns {DiscoveryResult} Returns a {@link DiscoveryResultMDNSSD}, {@link DiscoveryResultSSDP} or {@link DiscoveryResultMAC} instance.
+     * @returns {DiscoveryResultMDNSSD | DiscoveryResultSSDP | DiscoveryResultMAC}
      */
     getDiscoveryResult(id: string): DiscoveryResultMDNSSD | DiscoveryResultSSDP | DiscoveryResultMAC;
 }
+declare namespace DiscoveryStrategy {
+    export { DiscoveryResultMDNSSD, DiscoveryResultSSDP, DiscoveryResultMAC };
+}
+import SimpleClass = require("./SimpleClass.js");
+type DiscoveryResultMDNSSD = import('./DiscoveryResultMDNSSD');
+type DiscoveryResultSSDP = import('./DiscoveryResultSSDP');
+type DiscoveryResultMAC = import('./DiscoveryResultMAC');

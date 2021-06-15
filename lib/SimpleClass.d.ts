@@ -1,6 +1,6 @@
 export = SimpleClass;
 /**
- * This is a simple class, extended by many other classes.
+ * This is a simple class with log functions.
  */
 declare class SimpleClass extends events.EventEmitter {
     /**

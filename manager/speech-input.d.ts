@@ -1,5 +1,8 @@
 export = ManagerSpeechInput;
 /**
+ * @typedef {import('../lib/Device')} Device
+ */
+/**
   * @typedef {object} ManagerSpeechInput.Chunk
   * @property {string} transcript - The chunk text
   * @property {number} startWord - The index of the words array where the chunk starts
@@ -30,17 +33,18 @@ export = ManagerSpeechInput;
  * @typedef {object} ManagerSpeechInput.Word
  * @property {string} word - The word
  * @property {string} posTag - The part-of-speech tag assigned to the word, using universal dependencies tagset
- * @property {ManagerSpeechInput.Chunk[]} chunks - lists any chunks starting at this word. Stuctured the same as the object in speech.chunks[]
- * @property {ManagerSpeechInput.Location[]} locations - lists any locations starting at this word. Stuctured the same as the object in speech.locations[]
- * @property {ManagerSpeechInput.Time[]} times - lists any times starting at this word. Stuctured the same as the object in speech.times[]
- * @property {object} devices - lists any device mentions starting at this word. Stuctured the same as the object in speech.devices[]
+ * @property {ManagerSpeechInput.Chunk[]} chunks - lists any chunks starting at this word. Stuctured the same as the Object in speech.chunks[]
+ * @property {ManagerSpeechInput.Location[]} locations - lists any locations starting at this word. Stuctured the same as the Object in speech.locations[]
+ * @property {ManagerSpeechInput.Time[]} times - lists any times starting at this word. Stuctured the same as the Object in speech.times[]
+ * @property {object} devices - lists any device mentions starting at this word. Stuctured the same as the Object in speech.devices[]
  */
 /**
- * @namespace ManagerSpeechInput
+ * @hideconstructor
  * @classdesc
  * You can access this manager through the {@link Homey} instance as `this.homey.speechInput`
  */
 declare class ManagerSpeechInput extends Manager {
+    static ID: string;
     /**
      * This event is fired when a speech query has been received, and needs feedback.
      * @event ManagerSpeechInput#speechEval
@@ -48,13 +52,13 @@ declare class ManagerSpeechInput extends Manager {
      * @param {string} speech.session - The session where the speech command originated from
      * @param {string} speech.transcript - The detected user thrase
      * @param {object} speech.matches - a dynamically generated tree containing all the matched Groups and Elements
-     * @param {ManagerSpeechInput.Word[]} speech.words - An array of objects, where each object contains the word's properties
+     * @param {ManagerSpeechInput.Word[]} speech.words - An array of Objects, where each Object contains the word's properties
      * @param {ManagerSpeechInput.Chunk[]} speech.chunks - An array of detected noun phrases and verb phrases
      * @param {ManagerSpeechInput.Location[]} speech.locations - An array of detected references to a location
      * @param {ManagerSpeechInput.Time[]} speech.times - An array of detected time references
      * @param {Device[]} speech.devices - An array of {@link Device} instances which match the device parameters specified in app.json
      * @param {string} speech.allZones - A structured phrase which can be used to provide user feedback about the detected Zone names. Format: "in the {zone_name}(, {zone_name})*( and the {zone_name})?"
-     * @param {genericCallbackFunction} callback - A truthy response is used to indicate that your App can process this transcript. The returned value will be passed on to the onSpeechMatch event
+     * @param {Function} callback - A truthy response is used to indicate that your App can process this transcript. The returned value will be passed on to the onSpeechMatch event
      */
     /**
      * @event ManagerSpeechInput#speechMatch
@@ -62,22 +66,19 @@ declare class ManagerSpeechInput extends Manager {
      * @param {string} speech.session - The session where the speech command originated from
      * @param {string} speech.transcript - The detected user thrase
      * @param {object} speech.matches - a dynamically generated tree containing all the matched Groups and Elements
-     * @param {ManagerSpeechInput.Word[]} speech.words - An array of objects, where each object contains the word's properties
+     * @param {ManagerSpeechInput.Word[]} speech.words - An array of Objects, where each Object contains the word's properties
      * @param {ManagerSpeechInput.Chunk[]} speech.chunks - An array of detected noun phrases and verb phrases
      * @param {ManagerSpeechInput.Location[]} speech.locations - An array of detected references to a location
      * @param {ManagerSpeechInput.Time[]} speech.times - An array of detected time references
      * @param {Device[]} speech.devices - An array of {@link Device} instances which match the device parameters specified in app.json
      * @param {string} speech.allZones - A structured phrase which can be used to provide user feedback about the detected Zone names. Format: "in the {zone_name}(, {zone_name})*( and the {zone_name})?"
-     * @param {ManagerSpeechOutput#say} speech.say - A shorthand method to say something, with the correct session
-     * @param {ManagerSpeechInput#ask} speech.ask - A shorthand method to ask a question, with the correct session
-     * @param {ManagerSpeechInput#confirm} speech.confirm - A shorthand method to ask a Yes/No question, with the correct session
      * @param {any} onSpeechData The result from {@link ManagerSpeechInput#event:speechEval speechEval}
      */
     /**
      * Let Homey ask a question. There is a limit of 255 characters.
      *
      * > Requires the `homey:manager:speech-input` and/or `homey:manager:speech-output` permissions.
-     * > For more information about permissions read the {@tutorial Permissions} tutorial.
+     * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @param {string} text - The sentence to say
      * @param {object} opts
@@ -93,7 +94,7 @@ declare class ManagerSpeechInput extends Manager {
      * Let Homey ask a Yes/No question. There is a limit of 255 characters.
      *
      * > Requires the `homey:manager:speech-input` and/or `homey:manager:speech-output` permissions.
-     * > For more information about permissions read the {@tutorial Permissions} tutorial.
+     * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @param {string} text - The sentence to say
      * @param {object} opts
@@ -107,110 +108,91 @@ declare class ManagerSpeechInput extends Manager {
     }): Promise<boolean>;
 }
 declare namespace ManagerSpeechInput {
-    type Chunk = {
-        /**
-         * - The chunk text
-         */
-        transcript: string;
-        /**
-         * - The index of the words array where the chunk starts
-         */
-        startWord: number;
-        /**
-         * - The index of the words array where the chunk ends
-         */
-        endWord: number;
-        /**
-         * - The chunk type - either NP (Noun Phrase) or VP (Verb Phrase)
-         */
-        type: string;
-    };
-    type Location = {
-        /**
-         * - The location name
-         */
-        transcript: string;
-        /**
-         * - The index of the words array where the location starts
-         */
-        startWord: number;
-        /**
-         * - The index of the words array where the location ends
-         */
-        endWord: number;
-    };
-    type Time = {
-        /**
-         * - The time text
-         */
-        transcript: string;
-        /**
-         * - The index of the words array where the time mention starts
-         */
-        startWord: number;
-        /**
-         * - The index of the words array where the time mention ends
-         */
-        endWord: number;
-        /**
-         * - The chunk type - either NP (Noun Phrase) or VP (Verb Phrase)
-         */
-        time: {
-            /**
-             * - Seconds. False if no reference to a specific second was made
-             */
-            second: number;
-            /**
-             * - Minutes. False if no reference to a specific minute was made
-             */
-            minute: number;
-            /**
-             * - Hour of the day. False if no reference to a specific hour was made
-             */
-            hour: number;
-            /**
-             * - Indicates whether there is uncertainty about a time being am or pm. True if there is uncertainty, false if the part of day was indicated
-             */
-            fuzzyHour: boolean;
-            /**
-             * - Day of the month. False if no reference to a specific day was made
-             */
-            day: number;
-            /**
-             * - Month number. 0 is january. False if no reference to a specific month was made
-             */
-            month: number;
-            /**
-             * - Year. False if no reference to a specific year was made
-             */
-            year: number;
-        };
-    };
-    type Word = {
-        /**
-         * - The word
-         */
-        word: string;
-        /**
-         * - The part-of-speech tag assigned to the word, using universal dependencies tagset
-         */
-        posTag: string;
-        /**
-         * - lists any chunks starting at this word. Stuctured the same as the object in speech.chunks[]
-         */
-        chunks: Chunk[];
-        /**
-         * - lists any locations starting at this word. Stuctured the same as the object in speech.locations[]
-         */
-        locations: Location[];
-        /**
-         * - lists any times starting at this word. Stuctured the same as the object in speech.times[]
-         */
-        times: Time[];
-        /**
-         * - lists any device mentions starting at this word. Stuctured the same as the object in speech.devices[]
-         */
-        devices: object;
-    };
+    export { Chunk, Location, Time, Word, Device };
 }
 import Manager = require("../lib/Manager.js");
+type Chunk = {
+    /**
+     * - The chunk text
+     */
+    transcript: string;
+    /**
+     * - The index of the words array where the chunk starts
+     */
+    startWord: number;
+    /**
+     * - The index of the words array where the chunk ends
+     */
+    endWord: number;
+    /**
+     * - The chunk type - either NP (Noun Phrase) or VP (Verb Phrase)
+     */
+    type: string;
+};
+type Location = {
+    /**
+     * - The location name
+     */
+    transcript: string;
+    /**
+     * - The index of the words array where the location starts
+     */
+    startWord: number;
+    /**
+     * - The index of the words array where the location ends
+     */
+    endWord: number;
+};
+type Time = {
+    /**
+     * - The time text
+     */
+    transcript: string;
+    /**
+     * - The index of the words array where the time mention starts
+     */
+    startWord: number;
+    /**
+     * - The index of the words array where the time mention ends
+     */
+    endWord: number;
+    /**
+     * - The chunk type - either NP (Noun Phrase) or VP (Verb Phrase)
+     */
+    time: {
+        second: number;
+        minute: number;
+        hour: number;
+        fuzzyHour: boolean;
+        day: number;
+        month: number;
+        year: number;
+    };
+};
+type Word = {
+    /**
+     * - The word
+     */
+    word: string;
+    /**
+     * - The part-of-speech tag assigned to the word, using universal dependencies tagset
+     */
+    posTag: string;
+    /**
+     * - lists any chunks starting at this word. Stuctured the same as the Object in speech.chunks[]
+     */
+    chunks: ManagerSpeechInput.Chunk[];
+    /**
+     * - lists any locations starting at this word. Stuctured the same as the Object in speech.locations[]
+     */
+    locations: ManagerSpeechInput.Location[];
+    /**
+     * - lists any times starting at this word. Stuctured the same as the Object in speech.times[]
+     */
+    times: ManagerSpeechInput.Time[];
+    /**
+     * - lists any device mentions starting at this word. Stuctured the same as the Object in speech.devices[]
+     */
+    devices: object;
+};
+type Device = import('../lib/Device');

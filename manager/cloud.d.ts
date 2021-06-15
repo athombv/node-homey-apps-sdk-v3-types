@@ -1,10 +1,11 @@
 export = ManagerCloud;
 /**
- * @namespace ManagerCloud
+ * @hideconstructor
  * @classdesc
  * You can access this manager through the {@link Homey} instance as `this.homey.cloud`
  */
 declare class ManagerCloud extends Manager {
+    static ID: string;
     /**
      * Generate a OAuth2 Callback
      * @param {string} apiUrl
