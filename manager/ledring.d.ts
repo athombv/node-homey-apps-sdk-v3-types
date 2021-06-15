@@ -1,13 +1,14 @@
 export = ManagerLedring;
 /**
- * @namespace ManagerLedring
+ * @hideconstructor
  * @classdesc
  * You can access this manager through the {@link Homey} instance as `this.homey.ledring`
  */
 declare class ManagerLedring extends Manager {
+    static ID: string;
     /**
      * > Requires the `homey:manager:ledring` permission.
-     * > For more information about permissions read the {@tutorial Permissions} tutorial.
+     * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @param {object} opts
      * @param {LedringAnimation.Frame[]} opts.frames An array of frames. A frame is an Array of 24 objects with a `r`, `g` and `b` property, which are numbers between 0 and 255.
@@ -33,7 +34,7 @@ declare class ManagerLedring extends Manager {
     }): Promise<LedringAnimation>;
     /**
      * > Requires the `homey:manager:ledring` permission.
-     * > For more information about permissions read the {@tutorial Permissions} tutorial.
+     * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @param {string} systemId The system animation's ID. Can be either `colorwipe`, `loading`, `off`, `progress`, `pulse`, `rainbow`, `rgb` or `solid`.
      * @param {object} opts
@@ -47,7 +48,7 @@ declare class ManagerLedring extends Manager {
     }): Promise<LedringAnimation>;
     /**
      * > Requires the `homey:manager:ledring` permission.
-     * > For more information about permissions read the {@tutorial Permissions} tutorial.
+     * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @param {object} opts
      * @param {string} opts.priority How high the animation will have on the priority stack. Can be either `INFORMATIVE`, `FEEDBACK` or `CRITICAL`.
@@ -64,7 +65,7 @@ declare class ManagerLedring extends Manager {
      * Register a LED Ring animation.
      *
      * > Requires the `homey:manager:ledring` permission.
-     * > For more information about permissions read the {@tutorial Permissions} tutorial.
+     * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @param {LedringAnimation} animation
      * @returns {Promise<LedringAnimation>}
@@ -74,7 +75,7 @@ declare class ManagerLedring extends Manager {
      * Unregister a LED Ring animation.
      *
      * > Requires the `homey:manager:ledring` permission.
-     * > For more information about permissions read the {@tutorial Permissions} tutorial.
+     * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @param {LedringAnimation} animation
      * @returns {Promise<LedringAnimation>}
@@ -84,7 +85,7 @@ declare class ManagerLedring extends Manager {
      * Register a LED Ring screensaver.
      *
      * > Requires the `homey:manager:ledring` permission.
-     * > For more information about permissions read the {@tutorial Permissions} tutorial.
+     * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @param {string} name - Name of the animation as defined in your app's `app.json`.
      * @param {LedringAnimation} animation
@@ -95,7 +96,7 @@ declare class ManagerLedring extends Manager {
      * Unregister a LED Ring screensaver.
      *
      * > Requires the `homey:manager:ledring` permission.
-     * > For more information about permissions read the {@tutorial Permissions} tutorial.
+     * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @param {string} name - Name of the animation as defined in your app's `app.json`.
      * @param {LedringAnimation} animation

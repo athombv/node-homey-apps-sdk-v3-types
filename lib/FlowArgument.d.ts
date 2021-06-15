@@ -1,5 +1,8 @@
 export = FlowArgument;
 /**
+ * @typedef {import('./FlowCard').ArgumentAutocompleteCallback} ArgumentAutocompleteCallback
+ */
+/**
  * The FlowArgument class represents an argument for a Flow Card as defined in the app's `app.json`.
  * This class must not be initiated by the developer, but retrieved by calling {@link FlowCard#getArgument}.
  */
@@ -8,9 +11,7 @@ declare class FlowArgument extends SimpleClass {
      * Register a listener for a autocomplete event.
      * This is fired when the argument is of type `autocomplete` and the user typed a query.
      *
-     * @param {Function} listener - Should return a promise that resolves to the autocomplete results.
-     * @param {string} listener.query - The typed query by the user
-     * @param {object} listener.args - The current state of the arguments, as selected by the user in the front-end
+     * @param {ArgumentAutocompleteCallback} listener - Should return a promise that resolves to the autocomplete results.
      * @returns {FlowArgument}
      *
      * @example
@@ -38,6 +39,10 @@ declare class FlowArgument extends SimpleClass {
      *   });
      * });
      */
-    registerAutocompleteListener(listener: Function): FlowArgument;
+    registerAutocompleteListener(listener: ArgumentAutocompleteCallback): FlowArgument;
+}
+declare namespace FlowArgument {
+    export { ArgumentAutocompleteCallback };
 }
 import SimpleClass = require("./SimpleClass.js");
+type ArgumentAutocompleteCallback = import('./FlowCard').ArgumentAutocompleteCallback;

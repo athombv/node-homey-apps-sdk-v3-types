@@ -4,11 +4,12 @@ export = ManagerDiscovery;
  * @see DiscoveryResultMDNSSD
  * @see DiscoveryResultSSDP
  * @see DiscoveryResultMAC
- * @namespace ManagerDiscovery
+ * @hideconstructor
  * @classdesc
  * You can access this manager through the {@link Homey} instance as `this.homey.discovery`
  */
 declare class ManagerDiscovery extends Manager {
+    static ID: string;
     /**
      * @param {string} strategyId The ID as defined in your `app.json`
      * @returns {DiscoveryStrategy}

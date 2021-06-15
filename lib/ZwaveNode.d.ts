@@ -7,8 +7,27 @@ export = ZwaveNode;
  */
 declare class ZwaveNode extends SimpleClass {
     online: any;
-    CommandClass: {};
-    MultiChannelNodes: {};
+    /** @type {Object<string, ZwaveCommandClass>} */
+    CommandClass: {
+        [x: string]: ZwaveCommandClass;
+    };
+    /** @type {Object<string, ZwaveNode>} */
+    MultiChannelNodes: {
+        [x: string]: ZwaveNode;
+    };
+    /**
+     * This method can be used to send a raw command to a node.
+     * @param {object} command
+     * @param {number} command.commandClassId The command class identified
+     * @param {number} command.commandId The command identified
+     * @param {Buffer=} command.params The command data as a buffer
+     * @returns {Promise<void>}
+     */
+    sendCommand({ commandClassId, commandId, params }: {
+        commandClassId: number;
+        commandId: number;
+        params?: Buffer | undefined;
+    }): Promise<void>;
     /**
      * This event is fired when a battery node changed it's online or offline status.
      * @property {boolean} online - If the node is online
@@ -26,3 +45,4 @@ declare class ZwaveNode extends SimpleClass {
      */
 }
 import SimpleClass = require("./SimpleClass.js");
+import ZwaveCommandClass = require("./ZwaveCommandClass.js");

@@ -1,10 +1,14 @@
 export = Driver;
 /**
+ * @typedef {import('./Homey')} Homey
+ * @typedef {import('./DiscoveryStrategy')} DiscoveryStrategy
+ * @typedef {import('./PairSession')} PairSession
+ */
+/**
  * The Driver class manages all Device instances, which represent all paired devices.
  * This class should be extended and exported from `driver.js`.
  * Methods prefixed with `on` are meant to be overriden.
  * It is not allowed to overwrite the constructor.
- * @tutorial Drivers
  * @example <caption>/drivers/my_driver/driver.js</caption>
  * const Homey = require('homey');
  *
@@ -16,7 +20,7 @@ export = Driver;
  *
  * module.exports = MyDriver;
  */
-declare class Driver<T extends App = App> extends SimpleClass {
+declare class Driver extends SimpleClass {
     /**
      * When this method exists, it will be called prior to initing the device instance. Return a class that extends {@link Device}.
      * @function Driver#onMapDeviceClass
@@ -39,12 +43,12 @@ declare class Driver<T extends App = App> extends SimpleClass {
      * The Homey instance of this driver
      * @type {Homey}
      */
-    homey: Homey<T>;
+    homey: Homey;
     /**
      * The driver's manifest (app.json entry)
-     * @type {object}
+     * @type {any}
      */
-    manifest: object;
+    manifest: any;
     /**
      * Returns a promise which is resolved when the Driver is ready ({@link Driver#onInit} has been run).
      * @returns {Promise<void>} promise that is resolved when the Drivers Manager is ready
@@ -61,12 +65,11 @@ declare class Driver<T extends App = App> extends SimpleClass {
      * @returns {Device} Device
      */
     getDevice(deviceData: object): Device;
-    getDeviceById(deviceAppId: any): any;
     /**
      * Get the driver's discovery strategy when defined in the manifest
      * @returns {DiscoveryStrategy}
      */
-    getDiscoveryStrategy(): any;
+    getDiscoveryStrategy(): DiscoveryStrategy;
     /**
      * This method is called when the driver is inited.
      */
@@ -75,7 +78,7 @@ declare class Driver<T extends App = App> extends SimpleClass {
      * This method is called when a pair session starts.
      * @param {PairSession} session Bi-directional socket for communication with the front-end
      */
-    onPair(session: any): void;
+    onPair(session: PairSession): void;
     /**
      * This method is called when no custom onPair() method has been defined, and the default is being used.
      * Simple drivers should override this method to provide a list of devices ready to be paired.
@@ -83,8 +86,11 @@ declare class Driver<T extends App = App> extends SimpleClass {
      */
     onPairListDevices(): Promise<any[]>;
 }
+declare namespace Driver {
+    export { Homey, DiscoveryStrategy, PairSession };
+}
 import SimpleClass = require("./SimpleClass.js");
-import Homey = require("./Homey.js");
-import App = require("./App.js");
+type Homey = import('./Homey');
 import Device = require("./Device.js");
-import DiscoveryStrategy = require("./DiscoveryStrategy.js");
+type DiscoveryStrategy = import('./DiscoveryStrategy');
+type PairSession = import('./PairSession');

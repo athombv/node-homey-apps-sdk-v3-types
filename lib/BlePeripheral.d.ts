@@ -7,52 +7,69 @@ export = BlePeripheral;
  * @property {string[]} serviceUuids - Array of service uuids
  */
 /**
+ * @classdesc
  * This class is a representation of a BLE peripheral in Homey.
  * This class must not be initiated by the developer, but retrieved by calling {@link BleAdvertisement#connect}.
- * @property {string} id - Id of the peripheral assigned by Homey
- * @property {string} uuid - Uuid of the peripheral
- * @property {string} address - The mac address of the peripheral
- * @property {string} addressType - The address type of the peripheral
- * @property {boolean} connectable - Indicates if Homey can connect to the peripheral
- * @property {number} rssi - The rssi signal strength value for the peripheral
- * @property {string} state - The state of the peripheral
- * @property {boolean} isConnected - If the peripheral is currently connected to Homey
- * @property {BleService[]} services - Array of services of the peripheral. Note that this array is only filled after the service is discovered by {BleAdvertisement#discoverServices} or {BleAdvertisement#discoverService}
- * @property {BlePeripheral.Advertisement} advertisement - Advertisement data of the peripheral
  */
 declare class BlePeripheral extends SimpleClass {
-    /** Id of the peripheral assigned by Homey */
-    id: string;
-    /** Uuid of the peripheral */
-    uuid: string;
-    /** The mac address of the peripheral */
-    address: string;
-    /** The address type of the peripheral */
-    addressType: string;
-    /** Indicates if Homey can connect to the peripheral */
-    connectable: boolean;
-    /** The rssi signal strength value for the peripheral */
-    rssi: number;
-    /** The state of the peripheral */
-    state: string;
-    /** Array of services of the peripheral. Note that this array is only filled after the service is discovered by {BleAdvertisement#discoverServices} or {BleAdvertisement#discoverService} */
-    services: BleService[];
-    /** Advertisement data of the peripheral */
-    advertisement: BlePeripheral.Advertisement;
- 
-    /** If the peripheral is currently connected to Homey */
-    get isConnected(): boolean;
     /**
-     * Asserts that the device is connected and if not, connects with the device.
-     * @returns {Promise<this>}
+     * Id of the peripheral assigned by Homey
+     * @type {string}
      */
-    assertConnected(): Promise<this>;
+    id: string;
+    /**
+     * Uuid of the peripheral
+     * @type {string}
+     */
+    uuid: string;
+    /**
+     * The mac address of the peripheral
+     * @type {string | undefined}
+     */
+    address: string | undefined;
+    /**
+     * The address type of the peripheral
+     * @type {string | undefined}
+     */
+    addressType: string | undefined;
+    /**
+     * Indicates if Homey can connect to the peripheral
+     * @type {boolean | undefined}
+     */
+    connectable: boolean | undefined;
+    /**
+     * The rssi signal strength value for the peripheral
+     * @type {number | undefined}
+     */
+    rssi: number | undefined;
+    /**
+     * The state of the peripheral
+     * @type {string | undefined}
+     */
+    state: string | undefined;
+    /**
+     * Advertisement data of the peripheral
+     * @type {import('./BleAdvertisement')}
+     */
+    advertisement: import('./BleAdvertisement');
+    /**
+     * Array of services of the peripheral. Note that this array is only filled after the service is discovered by {@link BleAdvertisement#discoverServices} or {@link BleAdvertisement#discoverService}
+     * @type {BleService[]}
+     */
+    services: BleService[];
+    /**
+     * If the peripheral is currently connected to Homey
+     */
+    get isConnected(): boolean;
     /**
      * Connects to the peripheral if Homey disconnected from it
      * @returns {Promise<this>}
      */
     connect(): Promise<this>;
-    connectionId: any;
+    /**
+     * Kept for backwards compatibility
+     */
+    assertConnected(): Promise<BlePeripheral>;
     /**
      * Disconnect Homey from the peripheral
      * @returns {Promise<void>}

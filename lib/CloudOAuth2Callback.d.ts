@@ -1,7 +1,6 @@
 export = CloudOAuth2Callback;
 /**
  * A OAuth2 Callback class that can be used to log-in using OAuth2
- * @tutorial Drivers-Pairing-System-Views
  * @example
  * let myOAuth2Callback = await this.homey.cloud.createOAuth2Callback(apiUrl);
  *

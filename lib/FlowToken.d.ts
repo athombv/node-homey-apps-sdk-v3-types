@@ -1,7 +1,10 @@
 export = FlowToken;
 /**
+ * @typedef {import('./Image')} Image
+ * @typedef {import('../manager/flow')} ManagerFlow
+ */
+/**
  * The FlowToken class can be used to create a Tag in the Flow Editor.
- * @tutorial Flow-Tokens
  */
 declare class FlowToken {
     id: string;
@@ -20,5 +23,10 @@ declare class FlowToken {
      * @param {string|number|boolean|Image} value The value of the token, should be of the same type as defined in the Token instance
      * @returns {Promise<any>}
      */
-    setValue(value: string | number | boolean | (new (width?: number | undefined, height?: number | undefined) => HTMLImageElement)): Promise<any>;
+    setValue(value: string | number | boolean | Image): Promise<any>;
 }
+declare namespace FlowToken {
+    export { Image, ManagerFlow };
+}
+type Image = import('./Image');
+type ManagerFlow = import('../manager/flow');
