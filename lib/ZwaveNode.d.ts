@@ -4,6 +4,17 @@ export = ZwaveNode;
  * This class must not be initiated by the developer, but retrieved by calling {@link ManagerZwave#getNode}.
  * @property {boolean} online - If the node is online
  * @property {object} CommandClass - An object with {@link ZwaveCommandClass} instances
+ * @property {number} nodeId - The id of the node within the Zwave network
+ * @property {string} deviceClassBasic - Basic device class
+ * @property {string} deviceClassGeneric - Generic device class
+ * @property {string} deviceClassSpecific - Specific device class
+ * @property {object} manufacturerId - The manufacturer id, in the value property of the object
+ * @property {object} productTypeId - The product type id, in the value property of the object
+ * @property {object} productId - The product id, in the value property of the object
+ * @property {number} firmwareId - Firmware identifier
+ * @property {boolean} battery - Whether the node is battery operated
+ * @property {number|undefined} multiChannelNodeId - If this is a multichannel node, the id
+ * @property {boolean} isMultiChannelNode - Whether this node is a multichannel node
  */
 declare class ZwaveNode extends SimpleClass {
     online: any;
@@ -43,6 +54,23 @@ declare class ZwaveNode extends SimpleClass {
      * @property {Buffer} data
      * @event ZwaveNode#unknownReport
      */
+    nodeId: number;
+    deviceClassBasic: string;
+    deviceClassGeneric: string;
+    deviceClassSpecific: string;
+    manufacturerId: {
+        value: number,
+    };
+    productTypeId: {
+        value: number,
+    };
+    productId: {
+        value: number,
+    };
+    firmwareId: number;
+    battery: boolean;
+    multiChannelNodeId: number|undefined;
+    isMultiChannelNode: boolean;
 }
 import SimpleClass = require("./SimpleClass.js");
 import ZwaveCommandClass = require("./ZwaveCommandClass.js");
