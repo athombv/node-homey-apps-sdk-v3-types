@@ -51,7 +51,7 @@ declare class FlowCard extends SimpleClass {
      *       id: '...',
      *     },
      *   ];
-  
+
      *   // filter based on the query
      *   return results.filter((result) => {
      *     return result.name.toLowerCase().includes(query.toLowerCase());
@@ -83,11 +83,15 @@ declare namespace FlowCard {
 import SimpleClass = require("./SimpleClass.js");
 import FlowArgument = require("./FlowArgument.js");
 type ManagerFlow = import('../manager/flow');
-type ArgumentAutocompleteResults = {
-    name: string;
-    description?: string | undefined;
-    icon?: string | undefined;
-    image?: string | undefined;
-};
+
+type ArgumentAutocompleteResult = {
+  name: string;
+  description?: string | undefined;
+  icon?: string | undefined;
+  image?: string | undefined;
+  [key: string]: any;
+}
+
+type ArgumentAutocompleteResults = Array<ArgumentAutocompleteResult>;
 type ArgumentAutocompleteCallback = (query: string, args: any) => Promise<FlowCard.ArgumentAutocompleteResults> | FlowCard.ArgumentAutocompleteResults;
 type RunCallback = (args: any, state: any) => Promise<any> | any;
