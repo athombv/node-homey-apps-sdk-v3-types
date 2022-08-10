@@ -35,6 +35,12 @@ declare class App extends SimpleClass {
      * @type {number} */
     sdk: number;
     /**
+     * Log instance used
+     * @see {@link https://www.npmjs.com/package/homey-log|homey-log} for documentation
+     * @type {any}
+     */
+    homeyLog?: any;
+    /**
      * This method is called upon initialization of your app.
      */
     onInit(): Promise<void>;
