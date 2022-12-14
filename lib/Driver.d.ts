@@ -75,6 +75,10 @@ declare class Driver extends SimpleClass {
      */
     onInit(): Promise<void>;
     /**
+     * This method is called when the driver is destroyed.
+     */
+    onUninit(): Promise<void>;
+    /**
      * This method is called when a pair session starts.
      * @param {PairSession} session Bi-directional socket for communication with the front-end
      */
