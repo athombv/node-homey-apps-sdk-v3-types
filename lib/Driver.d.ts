@@ -82,7 +82,19 @@ declare class Driver extends SimpleClass {
      * This method is called when a pair session starts.
      * @param {PairSession} session Bi-directional socket for communication with the front-end
      */
-    onPair(session: PairSession): void;
+    onPair(session: PairSession): Promise<void>;
+    /**
+     * This method is called when a repair session starts.
+     * @param {PairSession} session Bi-directional socket for communication with the front-end
+     * @param {Device} The device being repaired
+     */
+    onRepair(session: PairSession, device: Device): Promise<void>;
+    /**
+     * This method is called when an unpair session starts.
+     * @param {PairSession} session Bi-directional socket for communication with the front-end
+     * @param {Device} The device being unpaired
+     */
+    onUnpair(session: PairSession, device: Device): Promise<void>;
     /**
      * This method is called when no custom onPair() method has been defined, and the default is being used.
      * Simple drivers should override this method to provide a list of devices ready to be paired.
