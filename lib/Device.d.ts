@@ -291,6 +291,10 @@ declare class Device extends SimpleClass {
      */
     onInit(): Promise<void>;
     /**
+     * This method is called when the device is destroyed.
+     */
+    onUninit(): Promise<void>;
+    /**
      * This method is called when a device has been discovered. Overload this method, and return a truthy value when the result belongs to the current device or falsy when it doesn't.
      * By default, the method will match on a device's data.id property.
      * @param {DiscoveryResult} discoveryResult
