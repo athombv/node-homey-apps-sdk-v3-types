@@ -118,6 +118,38 @@ declare class Homey extends SimpleClass {
     zwave: ManagerZwave;
     /** @type {ManagerApi} */
     api: ManagerApi;
+    /**
+     * Show an alert dialog.
+     * @param {string} key
+     */
+    alert(key: string): Promise<void>;
+    /**
+     * Show a confirm dialog.
+     * @param {string} key
+     * @param {string | null} icon
+     * @param {Function} callback
+     */
+    confirm(key: string, icon: string | null, callback: Function): void;
+    /**
+     * Show a new window.
+     * @param {string} url
+     */
+    openURL(url: string): Promise<void>;
+    /**
+     * Get settings.
+     * @param {string} [key]
+     * @param {Function} callback
+     * @returns {any} value
+     */
+    get(key: string, callback: Function): any;
+    get(callback: Function): any;
+    /**
+     * Set a setting.
+     * @param {string} key
+     * @param {any} value
+     * @param {Function} callback
+     */
+    set(key: string, value: any, callback: Function): void;
     ready(): Promise<any>;
     markReady(): void;
     /**
