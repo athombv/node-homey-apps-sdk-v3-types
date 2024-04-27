@@ -117,7 +117,9 @@ declare class Homey extends SimpleClass {
     /** @type {ManagerZwave} */
     zwave: ManagerZwave;
     /** @type {ManagerApi} */
-    api: ManagerApi;
+    api: ManagerApi &
+        ((method: 'DELETE' | 'GET', uri: string, callback: Function) => void) &
+        ((method: 'POST' | 'PUT', uri: string, body: any, callback: Function) => void);
     ready(): Promise<any>;
     markReady(): void;
     /**
