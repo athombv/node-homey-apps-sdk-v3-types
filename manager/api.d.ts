@@ -79,3 +79,4 @@ declare class ManagerApi extends Manager {
 }
 import Manager = require("../lib/Manager.js");
 import Api = require("../lib/Api.js");
+import ApiApp = require("../lib/ApiApp.js");
