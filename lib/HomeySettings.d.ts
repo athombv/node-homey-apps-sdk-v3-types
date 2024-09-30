@@ -77,7 +77,7 @@ interface HomeySettings {
      * The settings view will be hidden until this method has been called.
      * Use the extra time to make required API calls to prevent flickering on screen.
      */
-    ready(): Promise<void>;
+    ready(): void;
     /**
      * Set a single setting's value. The value must be JSON-serializable.
      * @param {string} key
