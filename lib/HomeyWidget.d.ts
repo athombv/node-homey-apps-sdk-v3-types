@@ -56,7 +56,7 @@ interface HomeyWidget {
      * @param {Object} [args] An object with a height property.
      * @param {number|string} [args.height] The height of the widget.
      */
-    ready(args?: { height: number | string }): Promise<void>;
+    ready(args?: { height: number | string }): void;
     /**
      * Change the widget height during runtime.
      * @param {number|string|null} height
