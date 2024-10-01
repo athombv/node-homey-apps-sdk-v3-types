@@ -277,15 +277,15 @@ declare class Device extends SimpleClass {
      * This method is called when the user updates the device's name. Use this to synchronize the name to the device or bridge.
      * @param {string} name The new name
      */
-    onRenamed(name: string): void;
+    onRenamed(name: string): Promise<void>;
     /**
      * This method is called when the user deleted the device.
      */
-    onDeleted(): void;
+    onDeleted(): Promise<void>;
     /**
      * This method is called when the user adds the device, called just after pairing.
      */
-    onAdded(): void;
+    onAdded(): Promise<void>;
     /**
      * This method is called when the device is loaded, and properties such as name, capabilities and state are available.
      */
