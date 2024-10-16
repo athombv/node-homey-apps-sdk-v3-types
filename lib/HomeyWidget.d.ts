@@ -40,6 +40,11 @@ interface HomeyWidget {
      */
     getWidgetInstanceId(): string;
     /**
+     * Provide a haptic feedback on presses.
+     * This function can only be called in a short window after a touch event.
+     */
+    hapticFeedback(): void;
+    /**
      * Register an event listener for the app's realtime events.
      * @param {string} event
      * @param {Function} callback
