@@ -35,12 +35,6 @@ declare class BleService extends SimpleClass {
      */
     characteristics: BleCharacteristic[];
     /**
-     * Discovers included service uuids
-     * @param {string[]} [includedServicesFilter] Array of included service uuids to search for
-     * @returns {Promise<void>}
-     */
-    discoverIncludedServices(includedServicesFilter?: string[] | undefined): Promise<void>;
-    /**
      * Discover characteristics of this service
      * @param {string[]} [characteristicsFilter] List of characteristicUuids to search for
      * @returns {Promise<BleCharacteristic[]>}
