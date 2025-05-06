@@ -13,10 +13,9 @@ declare class ManagerBLE extends Manager {
      * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @param {string[]} [serviceFilter] - List of required serviceUuids the peripheral should expose
-     * @param {number} [timeout=10000] - Time in ms to search for Ble peripherals (max 30 seconds)
      * @returns {Promise<BleAdvertisement[]>}
      */
-    discover(serviceFilter?: string[] | undefined, timeout?: number | undefined): Promise<BleAdvertisement[]>;
+    discover(serviceFilter?: string[] | undefined): Promise<BleAdvertisement[]>;
     /**
      * Finds a Ble peripheral with a given peripheralUuid
      *
@@ -24,10 +23,9 @@ declare class ManagerBLE extends Manager {
      * > For more information about permissions read the [Permissions tutorial](https://app.gitbook.com/@athom/s/homey-apps/the-basics/app/permissions).
      *
      * @param {string} peripheralUuid - The uuid of the peripheral to find
-     * @param {number} [timeout=10000] - Time in ms to search for the Ble peripheral (max 30 seconds)
      * @returns {Promise<BleAdvertisement>}
      */
-    find(peripheralUuid: string, timeout?: number | undefined): Promise<BleAdvertisement>;
+    find(peripheralUuid: string): Promise<BleAdvertisement>;
 }
 import Manager = require("../lib/Manager.js");
 import BleAdvertisement = require("../lib/BleAdvertisement.js");
